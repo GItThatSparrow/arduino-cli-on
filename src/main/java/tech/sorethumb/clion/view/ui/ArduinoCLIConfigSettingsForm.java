@@ -192,11 +192,6 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     
     private void createUIComponents () {
         // TODO: place custom component creation code here
-        //platformTree.setExpandsSelectedPaths(true);
-        /*JBScrollPane scrollPanePackages = new JBScrollPane();
-        scrollPanePackages.setSize(BOARD_SELECTOR_SCROLL_PANE_SIZE);
-        JPanel jPanel = (JPanel)listPlatforms.getParent();
-        jPanel.add(scrollPanePackages);*/
     }
     
     private void clearControlsAndShowError(){
@@ -205,24 +200,12 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     }
     
     private void populatePlatformTree (Object[] packagePlatforms){
-        /*Arrays.stream(packagePlatforms).forEach(tn ->{
-            Platform p = (Platform) tn;
-            *//*DefaultMutableTreeNode pNode = new DefaultMutableTreeNode();
-            pNode.setUserObject(p);*//*
-            PlatformTreeCellRenderer treeCellRenderer = new PlatformTreeCellRenderer(p);
-            platformTree.add(treeCellRenderer);
-        });
-        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode();
-        PlatformTreeModel treeModel = new PlatformTreeModel(rootNode);
-        
-        platformTree.setModel(treeModel);*/
         try {
             PlatformTree pTree = new PlatformTree(packagePlatforms);
             JBScrollPane jbScrollPane = new JBScrollPane();
             jbScrollPane.setViewportView(pTree.getTree());
             listPlatforms.getParent().getParent().add(jbScrollPane);
             platformTree.setModel(pTree.getTree().getModel());
-            //listPlatforms.getRootPane().getContentPane().add(platformTree.getTree());
         }catch (Exception x){
             JLabel jLabel = new JLabel("oops.");
             jLabel.setForeground(Style.NUMBER_COLOR);
@@ -233,9 +216,7 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     private void populateBoardsList(PlatformVersion selectedPlatformVersion){
     
         log.debug("Selected Plaform: " + selectedPlatformVersion.getName());
-        listBoards.setListData(
-                selectedPlatformVersion.getBoards().toArray()
-        );
+        listBoards.setListData(selectedPlatformVersion.getBoards().toArray());
         listBoards.setCellRenderer(new BoardCellRenderer());
     }
 }
