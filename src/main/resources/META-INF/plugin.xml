@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>tech.sorethumb.clion.arduino-cli-on</id>
+    <name>Plugin display name here</name>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+    Creating a wrapper for the <a href="https://github.com/arduino/arduino-cli">Arduino CLI</a> for CLion.
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <configurationType
+            implementation  ="tech.sorethumb.clion.projectBuildConfigs.ArduinoCLIConfigType" />
+
+        <projectConfigurable
+            groupId         ="build"
+            displayName     ="Arduino CLI Plugin"
+            id              ="preference.arduinoCLIon"
+            instance        ="tech.sorethumb.clion.view.ui.ArduinoCLIPreferences" />
+
+        <projectService
+            serviceInterface      ="tech.sorethumb.clion.services.ArduinoCLIonConfiguration"
+            serviceImplementation ="tech.sorethumb.clion.services.ArduinoCLIonConfiguration"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
