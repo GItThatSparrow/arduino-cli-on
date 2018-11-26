@@ -3,15 +3,17 @@ package tech.sorethumb.clion.view.ui;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.ui.components.JBScrollPane;
+import com.intellij.ui.treeStructure.Tree;
 import org.jetbrains.annotations.NotNull;
 import tech.sorethumb.clion.constants.Style;
+import tech.sorethumb.clion.models.packageIndex.Board;
 import tech.sorethumb.clion.models.packageIndex.Package;
-import tech.sorethumb.clion.models.packageIndex.*;
+import tech.sorethumb.clion.models.packageIndex.PlatformVersion;
+import tech.sorethumb.clion.models.packageIndex.Root;
 import tech.sorethumb.clion.projectBuildConfigs.ArduinoCLIConfiguration;
 import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 import tech.sorethumb.clion.view.renderers.BoardCellRenderer;
 import tech.sorethumb.clion.view.renderers.PackageCellRenderer;
-import tech.sorethumb.clion.view.renderers.PlatformCellRenderer;
 import tech.sorethumb.clion.view.renderers.PlatformTree;
 
 import javax.swing.*;
@@ -20,8 +22,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import javax.swing.tree.TreePath;
 import java.io.IOException;
 
 public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConfiguration> {//extends JDialog {
@@ -30,16 +31,13 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     private final ArduinoCLIonConfiguration arduinoCLIonConfiguration;
     
     private JPanel cPane;
-    private JList listPlatforms;
     private JTextPane commandPreview;
     private JList listPackages;
     private JList listBoards;
     private JBScrollPane scrollPackages;
-    private JBScrollPane scrollPlatformsz;
     private JBScrollPane scrollBoards;
-    private JTree platformTree;
-    private JPanel panelPlatforms;
-    private JBScrollPane scrollPlatforms;
+    private Tree platformTree;
+    private JBScrollPane platformScrollPane;
     private Package selectedPackage;
     private PlatformVersion selectedPlatformVersion;
     private Board selectedBoard;
@@ -47,18 +45,6 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     public ArduinoCLIConfigSettingsForm (ArduinoCLIonConfiguration arduinoCLIonConfiguration) {
         this.arduinoCLIonConfiguration = arduinoCLIonConfiguration;
         listPackages.setCellRenderer(new PackageCellRenderer());
-        listPlatforms.addComponentListener(new ComponentAdapter() {
-            /**
-             * Invoked when the component has been made visible.
-             *
-             * @param e Event Source
-             */
-            @Override
-            public void componentShown (ComponentEvent e) {
-                super.componentShown(e);
-                populateBoardDataList();
-            }
-        });
         listPackages.addListSelectionListener(new ListSelectionListener() {
             /**
              * Called whenever the value of the selection changes.
@@ -70,26 +56,7 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
                 selectedPackage = ((Package)((JList)e.getSource()).getSelectedValue());
                 log.debug("Selected Package: " + selectedPackage.getName());
                 Object[] platforms = selectedPackage.getPlatforms().toArray();
-                listPlatforms.setListData(platforms);
-                listPlatforms.setCellRenderer(new PlatformCellRenderer());
                 populatePlatformTree(platforms);
-            }
-        });
-        listPlatforms.addListSelectionListener(new ListSelectionListener() {
-    
-            /**
-             * Called whenever the value of the selection changes.
-             *
-             * @param e the event that characterizes the change.
-             */
-            @Override
-            public void valueChanged (ListSelectionEvent e) {
-                selectedPlatformVersion = ((PlatformVersion)((JList)e.getSource()).getSelectedValue());
-                log.debug("Selected Plaform: " + selectedPlatformVersion.getName());
-                listBoards.setListData(
-                        selectedPlatformVersion.getBoards().toArray()
-                );
-                listBoards.setCellRenderer(new BoardCellRenderer());
             }
         });
         listBoards.addListSelectionListener(new ListSelectionListener() {
@@ -104,6 +71,7 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
                 log.debug("Selected Board: " + selectedBoard.getName());
             }
         });
+        
         platformTree.addTreeSelectionListener(new TreeSelectionListener() {
             /**
              * Called whenever the value of the selection changes.
@@ -112,21 +80,14 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
              */
             @Override
             public void valueChanged (TreeSelectionEvent e) {
-                DefaultMutableTreeNode nd = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
-                if(e.getPath().getPathCount() == 2){
-                    platformTree.collapsePath(e.getOldLeadSelectionPath());
-                    /*if(platformTree.isExpanded(e.getOldLeadSelectionPath()));
-                    if(!((JTree)e.getSource()).getExpandedDescendants(e.getPaths()[0]).hasMoreElements()){
-                        listBoards.removeAll();
-                    }*/
-                }else if(e.getPath().getPathCount() == 3){
-                    try {
-                        PlatformVersion pv = (PlatformVersion)nd.getUserObject();
-                        String.format("%s - (i.e \"%s %s\")", pv.getName(), pv.getArchitecture(), pv.getVersion());
-                        populateBoardsList(pv);
-                    }catch (Exception x){
-                        log.error("Wrong selection in tree node: ", x);
-                    }
+                
+                switch (e.getPath().getPathCount()){
+                    case 2:
+                        togglePlatformTreeNodeSelection(e);
+                        break;
+                    case 3:
+                        handlePlatformVersionSelection(e);
+                        break;
                 }
             }
         });
@@ -190,10 +151,6 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
         this.selectedPlatformVersion = selectedPlatformVersion;
     }
     
-    private void createUIComponents () {
-        // TODO: place custom component creation code here
-    }
-    
     private void clearControlsAndShowError(){
         cPane.removeAll();
         cPane.add(new JLabel("The path to the arduino-cli is not configured correctly."));
@@ -201,15 +158,13 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     
     private void populatePlatformTree (Object[] packagePlatforms){
         try {
+            listBoards.setListData(new Object[]{});
             PlatformTree pTree = new PlatformTree(packagePlatforms);
-            JBScrollPane jbScrollPane = new JBScrollPane();
-            jbScrollPane.setViewportView(pTree.getTree());
-            listPlatforms.getParent().getParent().add(jbScrollPane);
             platformTree.setModel(pTree.getTree().getModel());
         }catch (Exception x){
             JLabel jLabel = new JLabel("oops.");
             jLabel.setForeground(Style.NUMBER_COLOR);
-            listPlatforms.getParent().getParent().add(jLabel);
+            //listPlatforms.getParent().getParent().add(jLabel);
         }
     }
     
@@ -218,5 +173,25 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
         log.debug("Selected Plaform: " + selectedPlatformVersion.getName());
         listBoards.setListData(selectedPlatformVersion.getBoards().toArray());
         listBoards.setCellRenderer(new BoardCellRenderer());
+    }
+    
+    private void togglePlatformTreeNodeSelection(TreeSelectionEvent e){
+        listBoards.setListData(new Object[]{});
+        if(e.getOldLeadSelectionPath() != null) {
+            TreePath tp = (e.getOldLeadSelectionPath().getPathCount() == 2 ? e.getOldLeadSelectionPath() : e.getOldLeadSelectionPath().getParentPath());
+            platformTree.collapsePath(tp);
+        }
+        platformTree.expandPath(e.getNewLeadSelectionPath());
+    }
+    
+    private void handlePlatformVersionSelection(TreeSelectionEvent e){
+        DefaultMutableTreeNode nd = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
+        try {
+            PlatformVersion pv = (PlatformVersion)nd.getUserObject();
+            String.format("%s - (i.e \"%s %s\")", pv.getName(), pv.getArchitecture(), pv.getVersion());
+            populateBoardsList(pv);
+        }catch (Exception x){
+            log.error("Wrong selection in tree node: ", x);
+        }
     }
 }
