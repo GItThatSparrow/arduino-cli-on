@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="tech.sorethumb.clion.view.ui.ArduinoCLIConfigSettingsForm">
+  <grid id="27dc6" binding="cPane" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="5" left="5" bottom="5" right="5"/>
+    <constraints>
+      <xy x="20" y="20" width="968" height="520"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="6cccf" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="5dcf7" class="javax.swing.JTextPane" binding="commandPreview">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <background color="-5658199"/>
+              <editable value="false"/>
+              <font name="Courier New"/>
+              <foreground color="-13684945"/>
+              <text value="Command Preview Here"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="49855" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="400"/>
+            <preferred-size width="-1" height="400"/>
+            <maximum-size width="-1" height="400"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="fa8f6" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints/>
+            <properties/>
+            <border type="none" title="Packages" title-position="1"/>
+            <children>
+              <scrollpane id="cc8c9" class="com.intellij.ui.components.JBScrollPane" binding="scrollPackages">
+                <constraints/>
+                <properties>
+                  <preferredSize width="250" height="350"/>
+                  <verticalScrollBarPolicy value="22"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="b003c" class="com.intellij.ui.components.JBList" binding="listPackages">
+                    <constraints/>
+                    <properties>
+                      <font name="Consolas"/>
+                      <selectionMode value="0"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+          <grid id="37551" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints/>
+            <properties/>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+            <border type="none" title="Platforms" title-position="1"/>
+            <children>
+              <scrollpane id="fcd98" class="com.intellij.ui.components.JBScrollPane" binding="platformScrollPane">
+                <constraints/>
+                <properties>
+                  <minimumSize width="250" height="300"/>
+                  <preferredSize width="250" height="350"/>
+                  <verticalScrollBarPolicy value="22"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="a882" class="com.intellij.ui.treeStructure.Tree" binding="platformTree">
+                    <constraints/>
+                    <properties>
+                      <font name="Consolas"/>
+                      <rootVisible value="false"/>
+                      <scrollsOnExpand value="true"/>
+                      <showsRootHandles value="false"/>
+                    </properties>
+                    <clientProperties>
+                      <JTree.lineStyle class="java.lang.String" value=""/>
+                    </clientProperties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+          <grid id="f3ec8" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+            <constraints/>
+            <properties/>
+            <border type="none" title="Boards" title-position="1"/>
+            <children>
+              <scrollpane id="37a1c" class="com.intellij.ui.components.JBScrollPane" binding="scrollBoards">
+                <constraints/>
+                <properties>
+                  <preferredSize width="250" height="350"/>
+                  <verticalScrollBarPolicy value="22"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="b701a" class="com.intellij.ui.components.JBList" binding="listBoards">
+                    <constraints/>
+                    <properties>
+                      <font name="Consolas"/>
+                      <selectionMode value="0"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
