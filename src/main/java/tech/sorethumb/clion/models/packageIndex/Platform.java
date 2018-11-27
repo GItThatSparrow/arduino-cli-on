@@ -84,8 +84,10 @@ public class Platform implements NamedPackageObjects {
     /**
      * TODO Refactor lambda functions
      * This is a ridiculous way of accomplishing what I want it to do, for the moment.
+     *  - Also looks like there are duplicates incoming from the remote endpoint, but they're not.
+     *  - Duplicates have same version, but different {@link PlatformVersion#getArchitecture()} values.
      */
-    public void reverseSortVersions(){
+    private void reverseSortVersions(){
         mPlatformVersions = mPlatformVersions
                 .stream()
                 .sorted(

@@ -15,30 +15,68 @@ public class VersionNumberComparatorTest {
     public void compare () {
         PlatformVersion.Builder pvBuilder1 = new PlatformVersion.Builder();
         pvBuilder1.withVersion("1.6.2");
-        
         PlatformVersion pv1 = pvBuilder1.build();
+        
         PlatformVersion.Builder pvBuilder2 = new PlatformVersion.Builder();
         pvBuilder2.withVersion("1.6.23");
         PlatformVersion pv2 = pvBuilder2.build();
+    
+        PlatformVersion.Builder pvBuilder3 = new PlatformVersion.Builder();
+        pvBuilder3.withVersion("1.7.23");
+        PlatformVersion pv3 = pvBuilder3.build();
         
         Platform.Builder builder = new Platform.Builder();
-        builder.withversions(new ArrayList<>(Arrays.asList(pv1,pv2)));
+        builder.withversions(new ArrayList<>(Arrays.asList(pv1,pv2,pv3)));
         Platform platform = builder.build();
         
-        assertEquals("1.6.2", platform.getVersions().get(0).toString());
+        assertEquals("1.7.23", platform.getVersions().get(0).toString());
         assertEquals("1.6.23", platform.getVersions().get(1).toString());
-        
-        platform.reverseSortVersions();
-        //Stream<PlatformVersion> platformVersionStream = platform.getVersions().stream();
+        assertEquals("1.6.2", platform.getVersions().get(2).toString());
+    }
     
-        //List<PlatformVersion> sortedVersions =
-                /*platformVersionStream.sorted((cpv1, cpv2) ->
-                VersionNumberComparator.comparePlatformVersions(cpv1,cpv2)).collect(Collectors.toList());*/
+    @Test
+    public void compareBadCharacters () {
+        PlatformVersion.Builder pvBuilder1 = new PlatformVersion.Builder();
+        pvBuilder1.withVersion("1.6.2+1.0");
+        PlatformVersion pv1 = pvBuilder1.build();
         
-        /*List<PlatformVersion> sortedVersions = platform.getVersions().sort((cpv1, cpv2) ->
-                VersionNumberComparator.comparePlatformVersions(cpv1,cpv2));*/
+        PlatformVersion.Builder pvBuilder2 = new PlatformVersion.Builder();
+        pvBuilder2.withVersion("1.6.23+1.0");
+        PlatformVersion pv2 = pvBuilder2.build();
+    
+        PlatformVersion.Builder pvBuilder3 = new PlatformVersion.Builder();
+        pvBuilder3.withVersion("1.7.23+1.0");
+        PlatformVersion pv3 = pvBuilder3.build();
         
-        assertEquals("1.6.2", platform.getVersions().get(1).toString());
-        assertEquals("1.6.23", platform.getVersions().get(0).toString());
+        Platform.Builder builder = new Platform.Builder();
+        builder.withversions(new ArrayList<>(Arrays.asList(pv1,pv2,pv3)));
+        Platform platform = builder.build();
+        
+        assertEquals("1.7.23+1.0", platform.getVersions().get(0).toString());
+        assertEquals("1.6.23+1.0", platform.getVersions().get(1).toString());
+        assertEquals("1.6.2+1.0", platform.getVersions().get(2).toString());
+    }
+    
+    @Test
+    public void compareSameBadCharacters () {
+        PlatformVersion.Builder pvBuilder1 = new PlatformVersion.Builder();
+        pvBuilder1.withVersion("1.6.23+1.0");
+        PlatformVersion pv1 = pvBuilder1.build();
+    
+        PlatformVersion.Builder pvBuilder2 = new PlatformVersion.Builder();
+        pvBuilder2.withVersion("1.6.23+1.0");
+        PlatformVersion pv2 = pvBuilder2.build();
+    
+        PlatformVersion.Builder pvBuilder3 = new PlatformVersion.Builder();
+        pvBuilder3.withVersion("1.7.23+1.0");
+        PlatformVersion pv3 = pvBuilder3.build();
+        
+        Platform.Builder builder = new Platform.Builder();
+        builder.withversions(new ArrayList<>(Arrays.asList(pv1,pv2,pv3)));
+        Platform platform = builder.build();
+        
+        assertEquals("1.7.23+1.0", platform.getVersions().get(0).toString());
+        assertEquals("1.6.23+1.0", platform.getVersions().get(1).toString());
+        assertEquals("1.6.23+1.0", platform.getVersions().get(2).toString());
     }
 }
