@@ -3,9 +3,11 @@ package tech.sorethumb.clion.models.packageIndex;
 
 import com.google.gson.annotations.SerializedName;
 import tech.sorethumb.clion.models.NamedPackageObjects;
+import tech.sorethumb.clion.utils.VersionNumberComparator;
 
 import javax.annotation.Generated;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
@@ -48,6 +50,7 @@ public class Platform implements NamedPackageObjects {
             Platform platform = new Platform();
             platform.mPlatformVersions = mPlatformVersions;
             platform.mName = mName;
+            platform.reverseSortVersions();
             return platform;
         }
     }
@@ -76,5 +79,19 @@ public class Platform implements NamedPackageObjects {
     @Override
     public String toString () {
         return mName;
+    }
+    
+    /**
+     * TODO Refactor lambda functions
+     * This is a ridiculous way of accomplishing what I want it to do, for the moment.
+     */
+    public void reverseSortVersions(){
+        mPlatformVersions = mPlatformVersions
+                .stream()
+                .sorted(
+                        (cpv1, cpv2) -> VersionNumberComparator.comparePlatformVersions(cpv1,cpv2))
+                .collect(
+                        Collectors.toList()
+                );
     }
 }
