@@ -44,10 +44,6 @@ public class CommandLineTest {
         String result = Board.BoardList();
         String[] sa = result.split("\n");
         String last = sa[sa.length-1].trim();
-        /*System.out.println("TEST:\n\t" + last);
-        System.out.print(" Result (" + sa[sa.length-1].endsWith(last) + ")");
-        return sa[sa.length-1].endsWith(last);*/
-        
         assertTrue(sa[sa.length-1].endsWith(last));
     }
     @Test
