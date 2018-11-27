@@ -13,6 +13,9 @@ import com.intellij.openapi.options.SettingsEditorGroup;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import tech.sorethumb.clion.models.packageIndex.Board;
+import tech.sorethumb.clion.models.packageIndex.Package;
+import tech.sorethumb.clion.models.packageIndex.PlatformVersion;
 import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 import tech.sorethumb.clion.view.ui.ArduinoCLIConfigSettingsForm;
 
@@ -21,6 +24,45 @@ public class ArduinoCLIConfiguration extends RunConfigurationBase {
     Logger log = Logger.getInstance(ArduinoCLIConfiguration.class);
     
     ArduinoCLIonConfiguration arduinoCLIonConfiguration;
+    private String apiPath;
+    private Package selectedPackage;
+    private PlatformVersion selectedPlatformVersion;
+    private Board selectedBoard;
+    
+    public void setApiPath (String apiPath){
+        // TODO: Need to ensure we're not storing absolute paths to user's home directory.
+        // if(!apiPath.startsWith("~")) apiPath = apiPath.replaceFirst(System.getProperty("user.home"), "^~");
+        
+        this.apiPath = apiPath;
+    }
+    
+    public String getApiPath(){
+        return this.apiPath;
+    }
+    
+    public void setSelectedBoard(Board board){
+        this.selectedBoard = board;
+    }
+    
+    public Board getSelectedBoard(){
+        return this.selectedBoard;
+    }
+    
+    public Package getSelectedPackage () {
+        return selectedPackage;
+    }
+    
+    public void setSelectedPackage (Package selectedPackage) {
+        this.selectedPackage = selectedPackage;
+    }
+    
+    public PlatformVersion getSelectedPlatformVersion () {
+        return selectedPlatformVersion;
+    }
+    
+    public void setSelectedPlatformVersion (PlatformVersion selectedPlatformVersion) {
+        this.selectedPlatformVersion = selectedPlatformVersion;
+    }
     
     @Override
     public boolean collectOutputFromProcessHandler () {

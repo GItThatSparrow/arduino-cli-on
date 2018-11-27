@@ -28,7 +28,6 @@ import java.io.IOException;
 public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConfiguration> {//extends JDialog {
     
     private static final Logger log = Logger.getInstance(ArduinoCLIConfigSettingsForm.class);
-    private final ArduinoCLIonConfiguration arduinoCLIonConfiguration;
     
     private JPanel cPane;
     private JTextPane commandPreview;
@@ -41,9 +40,10 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     private Package selectedPackage;
     private PlatformVersion selectedPlatformVersion;
     private Board selectedBoard;
+    private Root root;
     
     public ArduinoCLIConfigSettingsForm (ArduinoCLIonConfiguration arduinoCLIonConfiguration) {
-        this.arduinoCLIonConfiguration = arduinoCLIonConfiguration;
+        //this.arduinoCLIonConfiguration = arduinoCLIonConfiguration;
         listPackages.setCellRenderer(new PackageCellRenderer());
         listPackages.addListSelectionListener(new ListSelectionListener() {
             /**
@@ -54,6 +54,7 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
             @Override
             public void valueChanged (ListSelectionEvent e) {
                 selectedPackage = ((Package)((JList)e.getSource()).getSelectedValue());
+                setSelectedPackage(selectedPackage);
                 log.debug("Selected Package: " + selectedPackage.getName());
                 Object[] platforms = selectedPackage.getPlatforms().toArray();
                 populatePlatformTree(platforms);
@@ -71,7 +72,6 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
                 log.debug("Selected Board: " + selectedBoard.getName());
             }
         });
-        
         platformTree.addTreeSelectionListener(new TreeSelectionListener() {
             /**
              * Called whenever the value of the selection changes.
@@ -95,16 +95,30 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     
     @Override
     protected void resetEditorFrom (@NotNull ArduinoCLIConfiguration s) {
-        if(arduinoCLIonConfiguration.getSelectedPackage() != null) setSelectedPackage(arduinoCLIonConfiguration.getSelectedPackage());
-        if(arduinoCLIonConfiguration.getSelectedPlatformVersion() != null) setSelectedPlatformVersion(arduinoCLIonConfiguration.getSelectedPlatformVersion());
-        if(arduinoCLIonConfiguration.getSelectedBoard() != null) setSelectedBoard(arduinoCLIonConfiguration.getSelectedBoard());
+        
+        if(s.getSelectedPackage() != null) setSelectedPackage(s.getSelectedPackage());
+        if(s.getSelectedPlatformVersion() != null) setSelectedPlatformVersion(s.getSelectedPlatformVersion());
+        if(s.getSelectedBoard() != null) setSelectedBoard(s.getSelectedBoard());
     }
     
     @Override
     protected void applyEditorTo (@NotNull ArduinoCLIConfiguration s) {
-        arduinoCLIonConfiguration.setSelectedPlatformVersion(this.getSelectedPlatformVersion());
-        arduinoCLIonConfiguration.setSelectedPackage(this.getSelectedPackage());
-        arduinoCLIonConfiguration.setSelectedBoard(this.getSelectedBoard());
+        if(root == null) {
+            
+            ArduinoCLIonConfiguration arduinoCLIonConfiguration = ArduinoCLIonConfiguration.getInstance(s.getProject());
+            s.setApiPath(arduinoCLIonConfiguration.getApiPath());
+    
+            try {
+                Root.getPackageList(arduinoCLIonConfiguration.getApiPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            com.intellij.openapi.util.Key<String> key = new com.intellij.openapi.util.Key<String>("TestKey");
+            s.putUserData(key, "Check out my values, brah.");
+        }
+        s.setSelectedPlatformVersion(this.getSelectedPlatformVersion());
+        s.setSelectedPackage(this.getSelectedPackage());
+        s.setSelectedBoard(this.getSelectedBoard());
     }
     
     @NotNull
@@ -114,17 +128,8 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
         return cPane;
     }
     
-    JPanel getRoot (){
-        return cPane;
-    }
-    
     private void populateBoardDataList (){
-        try {
-            Root root = Root.getPackageList(arduinoCLIonConfiguration.getApiPath());
-            listPackages.setListData(root.getPackages().toArray());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        listPackages.setListData(root.getPackages().toArray());
     }
     
     public void setSelectedBoard(Board board){
@@ -151,6 +156,10 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
         this.selectedPlatformVersion = selectedPlatformVersion;
     }
     
+    /**
+     * Leaving this here since
+     * it's part of <a href="https://github.com/GItThatSparrow/arduino-cli-on/issues/8">Form Validation #8</a>.
+     */
     private void clearControlsAndShowError(){
         cPane.removeAll();
         cPane.add(new JLabel("The path to the arduino-cli is not configured correctly."));
@@ -188,7 +197,7 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
         DefaultMutableTreeNode nd = (DefaultMutableTreeNode)e.getPath().getLastPathComponent();
         try {
             PlatformVersion pv = (PlatformVersion)nd.getUserObject();
-            String.format("%s - (i.e \"%s %s\")", pv.getName(), pv.getArchitecture(), pv.getVersion());
+            log.debug(String.format("Selected Platform id \"%s\" - (i.e \"%s %s\")", pv.getName(), pv.getArchitecture(), pv.getVersion()));
             populateBoardsList(pv);
         }catch (Exception x){
             log.error("Wrong selection in tree node: ", x);
