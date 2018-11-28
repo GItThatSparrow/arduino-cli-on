@@ -5,8 +5,6 @@ import tech.sorethumb.clion.constants.ProcessBuilderCommands;
 
 import java.io.IOException;
 
-import static java.util.Arrays.asList;
-
 public class CommandLine {
     
     private static final Logger log = Logger.getInstance(CommandLine.class);
@@ -16,11 +14,6 @@ public class CommandLine {
     static String help () {
         
         ProcessBuilder builder = new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI, ProcessBuilderCommands.HELP);
-        return ExecuteCommandLine(builder);
-    }
-    
-    public static String configDump(){
-        ProcessBuilder builder = new ProcessBuilder(asList(ProcessBuilderCommands.ARDUINO_CLI,"config", "dump"));
         return ExecuteCommandLine(builder);
     }
     

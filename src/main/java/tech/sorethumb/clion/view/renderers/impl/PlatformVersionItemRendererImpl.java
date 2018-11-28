@@ -49,11 +49,4 @@ public class PlatformVersionItemRendererImpl implements ListCellRenderer {
     public void setValue (Object value) {
         this.value = (PlatformVersion)value;
     }
-    
-    @Override
-    public String pretty () {
-        return null;
-    }
-    
-    
 }

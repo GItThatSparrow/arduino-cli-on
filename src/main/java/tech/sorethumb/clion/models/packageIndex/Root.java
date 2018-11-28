@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import tech.sorethumb.clion.integrations.ACliC.Core;
 import tech.sorethumb.clion.integrations.FileSystem;
-import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 
 import javax.annotation.Generated;
 import java.io.IOException;
@@ -56,20 +55,8 @@ public class Root {
      * @return A complete data structure of supported boards, cores and their architecture specs.
      * @throws IOException
      */
-    public static Root getPackageList(ArduinoCLIonConfiguration arduinoCLIonConfiguration) throws IOException {
-        String s = FileSystem.readPackageIndexJson(arduinoCLIonConfiguration);
-        Gson gson = new Gson();
-        return (Root)gson.fromJson(s, Root.class);
-    }
-    /**
-     * Retrieves a JSON-formatted file from the {@code Arduino15} directory. The JSON is
-     * deserialized as a fully populated {@link Root} object.
-     * @param arduinoCLIonConfiguration The local configuration to use in finding the appropriate JSON file.
-     * @return A complete data structure of supported boards, cores and their architecture specs.
-     * @throws IOException
-     */
-    public static Root getPackageList(String apiPath) throws IOException {
-        String s = FileSystem.readPackageIndexJson(apiPath);
+    public static Root getPackageList() {
+        String s = FileSystem.readPackageIndexJson();
         Gson gson = new Gson();
         return (Root)gson.fromJson(s, Root.class);
     }

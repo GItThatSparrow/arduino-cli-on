@@ -21,7 +21,7 @@ public class PlatformItemRendererImpl implements ListCellRenderer {
     @Override
     public void renderValue (ListCellRendererWrapper cellRenderer, boolean isSelected) {
         cellRenderer.setText(getFormattedValue());
-        String tip = String.format("%s", value.getName());
+        String tip = String.format("%s", value.getDisplayName());
         cellRenderer.setToolTipText(tip);
     }
     
@@ -49,11 +49,4 @@ public class PlatformItemRendererImpl implements ListCellRenderer {
     public void setValue (Object value) {
         this.value = (Platform)value;
     }
-    
-    @Override
-    public String pretty () {
-        return null;
-    }
-    
-    
 }

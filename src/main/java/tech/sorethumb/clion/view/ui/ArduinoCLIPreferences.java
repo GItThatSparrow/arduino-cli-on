@@ -5,7 +5,6 @@ import com.intellij.openapi.options.BaseConfigurable;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.options.ex.ConfigurableCardPanel;
 import com.intellij.openapi.project.Project;
-import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +22,7 @@ public class ArduinoCLIPreferences extends BaseConfigurable implements Searchabl
     private static final Logger log = Logger.getInstance(ConfigurableCardPanel.class);
     
     private ArduinoCLIPreferencesForm arduinoCLIPreferencesForm;
-    public static final String ARDUINO_CLION_ID = "preference.arduinoCLIon";
+    private static final String ARDUINO_CLION_ID = "preference.arduinoCLIon";
     
     private final Project project;
     private final ArduinoCLIonConfiguration arduinoCLIonConfiguration;
@@ -71,36 +70,19 @@ public class ArduinoCLIPreferences extends BaseConfigurable implements Searchabl
     
     @Override
     public boolean isModified() {
-        return isApiPathModified();
+        return false;
     }
     
     @Override
     public void apply() {
-        if(isApiPathModified()) {
-            arduinoCLIonConfiguration.setApiPath(getFormPath());
-        }
     }
     
     @Override
     public void reset() {
-        arduinoCLIPreferencesForm.setApiPath(arduinoCLIonConfiguration.getApiPath());
     }
     
     @Override
     public void disposeUIResources() {
         arduinoCLIPreferencesForm = null;
-    }
-    
-    private Boolean isApiPathModified(){
-        String existingApiPath = arduinoCLIonConfiguration.getApiPath();
-        return !StringUtils.equals(existingApiPath, getFormPath());
-    }
-    
-    private String getFormPath() {
-        String shellPath = arduinoCLIPreferencesForm.getApiPath();
-        if (StringUtils.isNotBlank(shellPath)) {
-            return shellPath;
-        }
-        return null;
     }
 }

@@ -10,13 +10,11 @@ import tech.sorethumb.clion.models.packageIndex.PlatformVersion;
 import tech.sorethumb.clion.models.packageIndex.Root;
 import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class PackagePlatformVersionTest {
     
@@ -28,17 +26,11 @@ public class PackagePlatformVersionTest {
     @Before
     public void setUp() {
         arduinoCLIonConfiguration = mock(ArduinoCLIonConfiguration.class);
-        String a15Path = ("~/Library/Arduino15").replaceFirst("^~", java.lang.System.getProperty("user.home"));
-        when(arduinoCLIonConfiguration.getApiPath()).thenReturn(a15Path);
-        try {
-            root = Root.getPackageList(arduinoCLIonConfiguration);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        root = Root.getPackageList();
     }
     
     @After
-    public void tearDown () throws Exception {
+    public void tearDown () {
         root = null;
     }
     
@@ -67,6 +59,6 @@ public class PackagePlatformVersionTest {
         
         List<Platform> platforms = PackagePlatformVersion.mapToPlatformList(setMap);
         assertTrue(!platforms.isEmpty());
-        assertTrue(platforms.size() > 0);
+        assertTrue(platforms.size() >= 1);
     }
 }

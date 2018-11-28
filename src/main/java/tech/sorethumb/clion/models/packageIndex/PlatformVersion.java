@@ -2,6 +2,7 @@
 package tech.sorethumb.clion.models.packageIndex;
 
 import com.google.gson.annotations.SerializedName;
+import com.intellij.openapi.util.text.StringUtil;
 import tech.sorethumb.clion.models.NamedPackageObjects;
 
 import javax.annotation.Generated;
@@ -73,7 +74,7 @@ public class PlatformVersion implements NamedPackageObjects {
     }
     
     public String getDisplayName(){
-        return mVersion;
+        return mName;
     }
 
     public static class Builder {
@@ -180,5 +181,9 @@ public class PlatformVersion implements NamedPackageObjects {
     @Override
     public String toString () {
         return mVersion;
+    }
+    
+    public String getTitleCaseName(){
+        return StringUtil.toTitleCase(mName);
     }
 }

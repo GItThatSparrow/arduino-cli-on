@@ -24,7 +24,7 @@ public class PackagePlatformVersion {
      */
     public static Map<String, List<PlatformVersion>> groupByPlatformArchitecture(List<PlatformVersion> platformVersions){
         Stream<PlatformVersion> pStream = platformVersions.stream();
-        TreeMap<String, List<PlatformVersion>> grouped = new TreeMap<>(pStream.collect(groupingBy(PlatformVersion::getArchitecture)));
+        TreeMap<String, List<PlatformVersion>> grouped = new TreeMap<>(pStream.collect(groupingBy(PlatformVersion::getTitleCaseName)));
         return grouped;
     }
     

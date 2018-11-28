@@ -29,15 +29,28 @@ public class ArduinoCLIonConfiguration implements PersistentStateComponent<Ardui
     
     ArduinoCLIonConfiguration () { }
     
-    public void setApiPath (String apiPath){
-        // TODO: Need to ensure we're not storing absolute paths to user's home directory.
-        // if(!apiPath.startsWith("~")) apiPath = apiPath.replaceFirst(System.getProperty("user.home"), "^~");
-        
-        this.apiPath = apiPath;
+    public void setSelectedBoard(Board board){
+        this.selectedBoard = board;
     }
     
-    public String getApiPath(){
-        return this.apiPath;
+    public Board getSelectedBoard(){
+        return this.selectedBoard;
+    }
+    
+    public Package getSelectedPackage () {
+        return selectedPackage;
+    }
+    
+    public void setSelectedPackage (Package selectedPackage) {
+        this.selectedPackage = selectedPackage;
+    }
+    
+    public PlatformVersion getSelectedPlatformVersion () {
+        return selectedPlatformVersion;
+    }
+    
+    public void setSelectedPlatformVersion (PlatformVersion selectedPlatformVersion) {
+        this.selectedPlatformVersion = selectedPlatformVersion;
     }
     
     @Nullable
@@ -60,9 +73,6 @@ public class ArduinoCLIonConfiguration implements PersistentStateComponent<Ardui
     
     @Nullable
     public static ArduinoCLIonConfiguration getInstance(Project project) {
-        ArduinoCLIonConfiguration sfec = ServiceManager.getService(project, ArduinoCLIonConfiguration.class);
-        return sfec;
+        return ServiceManager.getService(project, ArduinoCLIonConfiguration.class);
     }
-    
-    
 }

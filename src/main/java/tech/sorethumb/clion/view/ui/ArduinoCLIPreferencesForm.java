@@ -62,13 +62,4 @@ public class ArduinoCLIPreferencesForm {
     JPanel getRoot () {
         return rootPanel;
     }
-    
-    String getApiPath () {
-        return apiPath.getText();
-    }
-    
-    void setApiPath (String path) {
-        apiPath.setText(path);
-    }
-    
 }

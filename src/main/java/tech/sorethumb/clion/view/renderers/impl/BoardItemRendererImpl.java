@@ -47,9 +47,4 @@ public class BoardItemRendererImpl implements ListCellRenderer {
     public void setValue (Object value) {
         this.value = (Board)value;
     }
-    
-    @Override
-    public String pretty () {
-        return null;
-    }
 }
