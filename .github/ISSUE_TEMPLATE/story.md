@@ -4,8 +4,8 @@ about: A user Story to support a Feature/Epic
 
 ---
 
-*AS A* USER 
+***AS A*** USER 
 
-*I NEED TO* 
+***I NEED TO*** 
 
-*SO THAT*
+***SO THAT***
