@@ -19,9 +19,9 @@ import tech.sorethumb.clion.models.packageIndex.PlatformVersion;
 import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 import tech.sorethumb.clion.view.ui.ArduinoCLIConfigSettingsForm;
 
-public class ArduinoCLIConfiguration extends RunConfigurationBase {
+public class ArduinoCLIonBuildConfiguration extends RunConfigurationBase {
     
-    Logger log = Logger.getInstance(ArduinoCLIConfiguration.class);
+    Logger log = Logger.getInstance(ArduinoCLIonBuildConfiguration.class);
     
     ArduinoCLIonConfiguration arduinoCLIonConfiguration;
     private String apiPath;
@@ -69,7 +69,7 @@ public class ArduinoCLIConfiguration extends RunConfigurationBase {
         return super.collectOutputFromProcessHandler();
     }
     
-    public ArduinoCLIConfiguration (Project project, ConfigurationFactory factory, String name){
+    public ArduinoCLIonBuildConfiguration (Project project, ConfigurationFactory factory, String name){
         super(project, factory, name);
         arduinoCLIonConfiguration = ArduinoCLIonConfiguration.getInstance(project);
     }

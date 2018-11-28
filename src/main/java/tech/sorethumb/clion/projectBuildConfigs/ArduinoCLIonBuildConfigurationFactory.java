@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import static tech.sorethumb.clion.constants.ArduinoCLIBuildConstants.ACB_PLUGIN_ID_CONFIG_FACTORY;
 import static tech.sorethumb.clion.constants.ArduinoCLIBuildConstants.ACB_PLUGIN_ID_CONFIG_FACTORY_NAME;
 
-public class ArduinoCLIConfigurationFactory extends ConfigurationFactory {
+public class ArduinoCLIonBuildConfigurationFactory extends ConfigurationFactory {
     
-    public ArduinoCLIConfigurationFactory (ConfigurationType type) {
+    public ArduinoCLIonBuildConfigurationFactory (ConfigurationType type) {
         super(type);
     }
     
@@ -24,7 +24,7 @@ public class ArduinoCLIConfigurationFactory extends ConfigurationFactory {
     @NotNull
     @Override
     public RunConfiguration createTemplateConfiguration (@NotNull Project project) {
-        return new ArduinoCLIConfiguration(project, this, ACB_PLUGIN_ID_CONFIG_FACTORY_NAME);
+        return new ArduinoCLIonBuildConfiguration(project, this, ACB_PLUGIN_ID_CONFIG_FACTORY_NAME);
     }
     
     @Override

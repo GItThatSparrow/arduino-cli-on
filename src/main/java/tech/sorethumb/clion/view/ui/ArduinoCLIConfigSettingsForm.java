@@ -10,7 +10,7 @@ import tech.sorethumb.clion.models.packageIndex.Board;
 import tech.sorethumb.clion.models.packageIndex.Package;
 import tech.sorethumb.clion.models.packageIndex.PlatformVersion;
 import tech.sorethumb.clion.models.packageIndex.Root;
-import tech.sorethumb.clion.projectBuildConfigs.ArduinoCLIConfiguration;
+import tech.sorethumb.clion.projectBuildConfigs.ArduinoCLIonBuildConfiguration;
 import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 import tech.sorethumb.clion.view.renderers.BoardCellRenderer;
 import tech.sorethumb.clion.view.renderers.PackageCellRenderer;
@@ -24,7 +24,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
-public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConfiguration> {//extends JDialog {
+public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIonBuildConfiguration> {//extends JDialog {
     
     private static final Logger log = Logger.getInstance(ArduinoCLIConfigSettingsForm.class);
     
@@ -48,7 +48,7 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     }
     
     @Override
-    protected void resetEditorFrom (@NotNull ArduinoCLIConfiguration s) {
+    protected void resetEditorFrom (@NotNull ArduinoCLIonBuildConfiguration s) {
         
         if(s.getSelectedPackage() != null) setSelectedPackage(s.getSelectedPackage());
         if(s.getSelectedPlatformVersion() != null) setSelectedPlatformVersion(s.getSelectedPlatformVersion());
@@ -56,20 +56,9 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     }
     
     @Override
-    protected void applyEditorTo (@NotNull ArduinoCLIConfiguration s) {
-        if(root == null) {
-            
-            ArduinoCLIonConfiguration arduinoCLIonConfiguration = ArduinoCLIonConfiguration.getInstance(s.getProject());
-            s.setApiPath(arduinoCLIonConfiguration.getApiPath());
-    
-            try {
-                Root.getPackageList(arduinoCLIonConfiguration.getApiPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            com.intellij.openapi.util.Key<String> key = new com.intellij.openapi.util.Key<String>("TestKey");
-            s.putUserData(key, "Check out my values, brah.");
-        }
+    protected void applyEditorTo (@NotNull ArduinoCLIonBuildConfiguration s) {
+        com.intellij.openapi.util.Key<String> key = new com.intellij.openapi.util.Key<String>("TestKey");
+        s.putUserData(key, "Check out my values, brah.");
         s.setSelectedPlatformVersion(this.getSelectedPlatformVersion());
         s.setSelectedPackage(this.getSelectedPackage());
         s.setSelectedBoard(this.getSelectedBoard());

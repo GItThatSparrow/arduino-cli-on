@@ -15,7 +15,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <configurationType
-            implementation  ="tech.sorethumb.clion.projectBuildConfigs.ArduinoCLIConfigType" />
+            implementation  ="tech.sorethumb.clion.projectBuildConfigs.ArduinoCLIonBuildConfigurationType" />
 
         <projectConfigurable
             groupId         ="build"

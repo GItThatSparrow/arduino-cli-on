@@ -10,7 +10,7 @@ import tech.sorethumb.clion.constants.ArduinoCLIBuildConstants;
 
 import javax.swing.*;
 
-public class ArduinoCLIConfigType implements ConfigurationType {
+public class ArduinoCLIonBuildConfigurationType implements ConfigurationType {
     
     /**
      * Returns the display name of the configuration type. This is used, for example, to represent the configuration type in the run
@@ -76,6 +76,6 @@ public class ArduinoCLIConfigType implements ConfigurationType {
      */
     @Override
     public ConfigurationFactory[] getConfigurationFactories () {
-        return new ConfigurationFactory[]{new ArduinoCLIConfigurationFactory(this)};
+        return new ConfigurationFactory[]{new ArduinoCLIonBuildConfigurationFactory(this)};
     }
 }
