@@ -1,7 +1,8 @@
 <idea-plugin>
     <id>tech.sorethumb.clion.arduino-cli-on</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <version>0.0.1</version>
+    <name>Arduino CLI-on</name>
+    <vendor email="5580664+GItThatSparrow@users.noreply.github.com" url="http://sorethumb.tech">SORE THUMB [ tech ]</vendor>
 
     <description><![CDATA[
     Creating a wrapper for the <a href="https://github.com/arduino/arduino-cli">Arduino CLI</a> for CLion.
@@ -11,6 +12,7 @@
          on how to target different products -->
     <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.clion</depends>
     -->
 
     <extensions defaultExtensionNs="com.intellij">

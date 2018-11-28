@@ -29,17 +29,6 @@ public class ArduinoCLIonBuildConfiguration extends RunConfigurationBase {
     private PlatformVersion selectedPlatformVersion;
     private Board selectedBoard;
     
-    public void setApiPath (String apiPath){
-        // TODO: Need to ensure we're not storing absolute paths to user's home directory.
-        // if(!apiPath.startsWith("~")) apiPath = apiPath.replaceFirst(System.getProperty("user.home"), "^~");
-        
-        this.apiPath = apiPath;
-    }
-    
-    public String getApiPath(){
-        return this.apiPath;
-    }
-    
     public void setSelectedBoard(Board board){
         this.selectedBoard = board;
     }

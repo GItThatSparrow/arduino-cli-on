@@ -29,30 +29,6 @@ public class ArduinoCLIonConfiguration implements PersistentStateComponent<Ardui
     
     ArduinoCLIonConfiguration () { }
     
-    public void setSelectedBoard(Board board){
-        this.selectedBoard = board;
-    }
-    
-    public Board getSelectedBoard(){
-        return this.selectedBoard;
-    }
-    
-    public Package getSelectedPackage () {
-        return selectedPackage;
-    }
-    
-    public void setSelectedPackage (Package selectedPackage) {
-        this.selectedPackage = selectedPackage;
-    }
-    
-    public PlatformVersion getSelectedPlatformVersion () {
-        return selectedPlatformVersion;
-    }
-    
-    public void setSelectedPlatformVersion (PlatformVersion selectedPlatformVersion) {
-        this.selectedPlatformVersion = selectedPlatformVersion;
-    }
-    
     @Nullable
     @Override
     public ArduinoCLIonConfiguration getState() {
