@@ -23,7 +23,6 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-import java.io.IOException;
 
 public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConfiguration> {//extends JDialog {
     
@@ -119,12 +118,8 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIConf
     }
     
     private void populateBoardDataList (){
-        try {
-            Root root = Root.getPackageList(arduinoCLIonConfiguration.getApiPath());
-            listPackages.setListData(root.getPackages().toArray());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Root root = Root.getPackageList(arduinoCLIonConfiguration.getApiPath());
+        listPackages.setListData(root.getPackages().toArray());
     }
     
     public void setSelectedBoard(Board board){

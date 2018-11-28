@@ -68,7 +68,7 @@ public class Root {
      * @return A complete data structure of supported boards, cores and their architecture specs.
      * @throws IOException
      */
-    public static Root getPackageList(String apiPath) throws IOException {
+    public static Root getPackageList(String apiPath) {
         String s = FileSystem.readPackageIndexJson(apiPath);
         Gson gson = new Gson();
         return (Root)gson.fromJson(s, Root.class);

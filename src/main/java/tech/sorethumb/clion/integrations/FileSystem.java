@@ -20,14 +20,19 @@ public class FileSystem {
         return readPackageIndexJson(arduinoCLIonConfiguration.getApiPath());
     }
     
-    public static String readPackageIndexJson(String apiPath) throws IOException {
+    public static String readPackageIndexJson(String apiPath) {
         String filePath = apiPath + "/package_index.json";
         log.debug("Searching for packages at '" + filePath + "'");
         return readFile(filePath, Charset.defaultCharset());
     }
     
-    private static String readFile (String path, Charset encoding) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
+    private static String readFile (String path, Charset encoding) {
+        byte[] encoded = new byte[0];
+        try {
+            encoded = Files.readAllBytes(Paths.get(path));
+        } catch (IOException e) {
+            log.error("Cannot Read File", e);
+        }
         return new String(encoded, encoding);
     }
 }
