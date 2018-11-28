@@ -2,5 +2,5 @@
 .idea
 *.iml
 out
-/.idea/
 /gradle/
+/local.properties

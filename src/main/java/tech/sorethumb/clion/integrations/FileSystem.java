@@ -1,7 +1,7 @@
 package tech.sorethumb.clion.integrations;
 
 import com.intellij.openapi.diagnostic.Logger;
-import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
+import tech.sorethumb.clion.models.ConfigDump;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -16,11 +16,8 @@ public class FileSystem {
     
     private static final Logger log = Logger.getInstance(FileSystem.class);
     
-    public static String readPackageIndexJson(ArduinoCLIonConfiguration arduinoCLIonConfiguration) throws IOException {
-        return readPackageIndexJson(arduinoCLIonConfiguration.getApiPath());
-    }
-    
-    public static String readPackageIndexJson(String apiPath) {
+    public static String readPackageIndexJson() {
+        String apiPath = ConfigDump.ConfigDumpBuilder().getArduinoData();
         String filePath = apiPath + "/package_index.json";
         log.debug("Searching for packages at '" + filePath + "'");
         return readFile(filePath, Charset.defaultCharset());

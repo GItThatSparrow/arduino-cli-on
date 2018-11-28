@@ -6,13 +6,11 @@ import org.junit.Test;
 import org.mockito.Mock;
 import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class RootTest {
     
@@ -36,14 +34,8 @@ public class RootTest {
     
     @Test
     public void getPackageList () {
-        String a15Path = ("~/Library/Arduino15").replaceFirst("^~", java.lang.System.getProperty("user.home"));
-        when(arduinoCLIonConfiguration.getApiPath()).thenReturn(a15Path);
-        Root root = null;
-        try {
-            root = Root.getPackageList(arduinoCLIonConfiguration);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Root root = Root.getPackageList();
+        
         assertNotNull(root);
         assertTrue(!root.getPackages().isEmpty());
     }
@@ -51,15 +43,7 @@ public class RootTest {
     
     @Test
     public void mapToPlatformList () {
-        String a15Path = ("~/Library/Arduino15").replaceFirst("^~", java.lang.System.getProperty("user.home"));
-        when(arduinoCLIonConfiguration.getApiPath()).thenReturn(a15Path);
-        Root root = null;
-        try {
-            root = Root.getPackageList(arduinoCLIonConfiguration);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+        Root root = Root.getPackageList();
         Package p = root.getPackages().get(0);
         List<Platform> platforms = p.getPlatforms();
         

@@ -16,6 +16,4 @@ public interface ListCellRenderer {
     Object getValue();
     
     void setValue(Object value);
-    
-    String pretty();
 }

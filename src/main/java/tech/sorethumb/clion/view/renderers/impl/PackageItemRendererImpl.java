@@ -21,7 +21,7 @@ public class PackageItemRendererImpl implements ListCellRenderer {
     @Override
     public void renderValue (ListCellRendererWrapper cellRenderer, boolean isSelected) {
         cellRenderer.setText(getFormattedValue());
-        String tip = String.format("%s (%s)", value.getMaintainer(), value.getWebsiteURL());
+        String tip = value.getWebsiteURL();
         cellRenderer.setToolTipText(tip);
     }
     
@@ -37,7 +37,7 @@ public class PackageItemRendererImpl implements ListCellRenderer {
     
     @Override
     public String getFormattedValue () {
-        return String.format("%s", value.getName());
+        return String.format("%s", value.getMaintainer());
     }
     
     @Override
@@ -48,10 +48,5 @@ public class PackageItemRendererImpl implements ListCellRenderer {
     @Override
     public void setValue (Object value) {
         this.value = (Package)value;
-    }
-    
-    @Override
-    public String pretty () {
-        return null;
     }
 }

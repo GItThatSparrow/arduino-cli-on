@@ -22,30 +22,39 @@ public class ConfigDump {
     private String arduino_data;// ~/Library/arduino15
     private String board_manager;// null
     
-    public ConfigDump(String proxyType, String sbPath, String arduinoData, String boardManager){
+    private ConfigDump (String proxyType, String sbPath, String arduinoData, String boardManager){
         proxy_type = proxyType;
         sketchbook_path = sbPath;
         arduino_data = arduinoData;
         board_manager = boardManager;
     }
     
-    public String getProxyType () {
+    String getProxyType () {
         return proxy_type;
     }
     
-    public String getSketchbookPath () {
+    String getSketchbookPath () {
         return sketchbook_path;
     }
     
+    /**
+     * Your {@code arduion-cli} contains information about its installation, like where it was installed.
+     * @return The OS-specific installation path of {@code arduino-cli}.
+     */
     public String getArduinoData () {
         return arduino_data;
     }
     
-    public String getBoardManager () {
+    String getBoardManager () {
         return board_manager;
     }
     
-    public static ConfigDump ConfigDumpBuilder(String response){
+    public static ConfigDump ConfigDumpBuilder() {
+        String response = tech.sorethumb.clion.integrations.ACliC.Config.dump();
+        return ConfigDumpBuilder(response);
+    }
+    
+    static ConfigDump ConfigDumpBuilder (String response){
         
         String proxy_type;
         String sketchbook_path;
@@ -54,8 +63,7 @@ public class ConfigDump {
         
         String[] strings = response.split("\\n");
         
-        Map<String, String> map = Arrays.asList(strings)
-                .stream()
+        Map<String, String> map = Arrays.stream(strings)
                 .map(str -> str.split(": "))
                 .collect(toMap(str -> str[0], str -> str[1]));
         
