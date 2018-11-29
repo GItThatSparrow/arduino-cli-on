@@ -13,7 +13,7 @@ public class BoardDetailsTest {
     @Before
     public void setUp () throws Exception {
     
-        String fqbn = "attiny:avr:ATtinyX4";
+        fqbn = "attiny:avr:ATtinyX4";
     }
     
     @After
