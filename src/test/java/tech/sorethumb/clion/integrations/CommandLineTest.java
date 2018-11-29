@@ -33,33 +33,19 @@ public class CommandLineTest {
             "\n" +
             "Use \"arduino-cli [command] --help\" for more information about a command.\n";
     @Test
-    public void boardListJSON() {
+    public void boardList() {
         Boolean b = true;
         String result = Board.BoardList();
         String jsonStart = "{\"serialBoards\":[";
         assertTrue(result.startsWith(jsonStart));
     }
     @Test
-    public void boardList(){
-        String result = Board.BoardList();
-        String[] sa = result.split("\n");
-        String last = sa[sa.length-1].trim();
-        assertTrue(sa[sa.length-1].endsWith(last));
-    }
-    @Test
-    public void boardListAllJSON(){
+    public void boardListAll(){
         Boolean b = true;
         String result = Board.BoardListAll();
         String jsonStart = "{\"boards\":[{\"name\":\"ATtiny24/44/84\",\"fqbn\":\"attiny:avr:ATtinyX4\"},{\"name\":\"ATtiny25/45/85\"";
         boolean bResult = result.startsWith(jsonStart);
         assertTrue(bResult);
-    }
-    @Test
-    public void boardListAll(){
-        Boolean b = true;
-        String result = Board.BoardListAll();
-        boolean bResult = result.startsWith("Board Name                             \tFQBN                                       \n");
-        assertEquals(true, bResult);
     }
     @Test
     public void help () {
