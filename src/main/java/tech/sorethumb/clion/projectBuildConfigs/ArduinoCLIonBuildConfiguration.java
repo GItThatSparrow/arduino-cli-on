@@ -108,4 +108,9 @@ public class ArduinoCLIonBuildConfiguration extends RunConfigurationBase {
         return null;
     }
     
+    // TODO Is this the right spot to compile the `fqbn` part of the command-line?
+    String getCommandLineString (){
+        String retVal = String.format("");
+        return retVal;
+    }
 }

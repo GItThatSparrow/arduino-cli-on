@@ -8,7 +8,6 @@ import tech.sorethumb.clion.services.ArduinoCLIonConfiguration;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
@@ -35,8 +34,6 @@ public class RootTest {
     @Test
     public void getPackageList () {
         Root root = Root.getPackageList();
-        
-        assertNotNull(root);
         assertTrue(!root.getPackages().isEmpty());
     }
     
@@ -46,7 +43,6 @@ public class RootTest {
         Root root = Root.getPackageList();
         Package p = root.getPackages().get(0);
         List<Platform> platforms = p.getPlatforms();
-        
         assertTrue(platforms.size() > 0);
         assertTrue(platforms.get(0).getVersions().size() > 0);
     }

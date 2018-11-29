@@ -35,7 +35,7 @@ public class CommandLineTest {
     @Test
     public void boardListJSON() {
         Boolean b = true;
-        String result = Board.BoardListJSON();
+        String result = Board.BoardList();
         String jsonStart = "{\"serialBoards\":[";
         assertTrue(result.startsWith(jsonStart));
     }
@@ -49,7 +49,7 @@ public class CommandLineTest {
     @Test
     public void boardListAllJSON(){
         Boolean b = true;
-        String result = Board.BoardListAllJSON();
+        String result = Board.BoardListAll();
         String jsonStart = "{\"boards\":[{\"name\":\"ATtiny24/44/84\",\"fqbn\":\"attiny:avr:ATtinyX4\"},{\"name\":\"ATtiny25/45/85\"";
         boolean bResult = result.startsWith(jsonStart);
         assertTrue(bResult);

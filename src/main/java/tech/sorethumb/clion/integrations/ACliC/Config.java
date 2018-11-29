@@ -8,13 +8,15 @@ public class Config extends CommandLine {
     
     /**
      * A command-line operation that returns all configuration settings.
-     * @return
+     *
+     * This operation is not capable of outputting JSON.
+     * @return A key/value output, not JSON.
      */
     public static String dump(){
         ProcessBuilder builder = new ProcessBuilder(
                 ProcessBuilderCommands.ARDUINO_CLI,
                 tech.sorethumb.clion.constants.ACliC.Config.asString(),
                 tech.sorethumb.clion.constants.ACliC.Config.DUMP);
-        return CommandLine.ExecuteCommandLine(builder, false, false).trim();
+        return CommandLine.ExecuteCommandLine(builder).trim();
     }
 }

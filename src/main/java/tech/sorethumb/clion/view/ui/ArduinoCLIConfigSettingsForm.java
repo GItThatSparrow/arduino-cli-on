@@ -58,7 +58,11 @@ public class ArduinoCLIConfigSettingsForm  extends SettingsEditor<ArduinoCLIonBu
     @Override
     protected void applyEditorTo (@NotNull ArduinoCLIonBuildConfiguration s) {
         com.intellij.openapi.util.Key<String> key = new com.intellij.openapi.util.Key<String>("TestKey");
-        s.putUserData(key, "Check out my values, brah.");
+        if(s.getUserData(key) == null) {
+            s.putUserData(key, "Check out my values, brah.");
+        }else{
+            log.debug("Testing User Data Keys: " + s.getUserData(key));
+        }
         s.setSelectedPlatformVersion(this.getSelectedPlatformVersion());
         s.setSelectedPackage(this.getSelectedPackage());
         s.setSelectedBoard(this.getSelectedBoard());

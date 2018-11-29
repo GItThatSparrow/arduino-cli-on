@@ -1,51 +1,49 @@
 package tech.sorethumb.clion.integrations.ACliC;
 
-import com.google.gson.Gson;
 import tech.sorethumb.clion.constants.ProcessBuilderCommands;
 import tech.sorethumb.clion.integrations.CommandLine;
-import tech.sorethumb.clion.models.Boards;
 
 public class Board extends tech.sorethumb.clion.integrations.CommandLine {
     
-    
-    public static String BoardListJSON () {
-        return BoardList(true);
-    }
-    
+    /**
+     * Retrieves information about connected boards.
+     * @return A string with Fqbn, Port, Name, USB ID and an array of Network Boards.
+     */
     public static String BoardList () {
-        return BoardList(false);
-    }
-    
-    private static String BoardList (boolean asJSON) {
         
         ProcessBuilder builder =
                 new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
                         tech.sorethumb.clion.constants.ACliC.Board.asString(),
                         tech.sorethumb.clion.constants.ACliC.Board.LIST);
-        return CommandLine.ExecuteCommandLine(builder, asJSON, false);
+        return CommandLine.ExecuteCommandLine(builder);
     }
     
-    public static String BoardListAllJSON () {
-        return BoardListAll(true);
-    }
-    
+    /**
+     * Retrieves information about connected boards.
+     * @return A string with Fqbn, Port, Name, USB ID and an array of Network Boards.
+     */
     public static String BoardListAll () {
-        return BoardListAll(false);
-    }
     
-    private static String BoardListAll (boolean asJSON) {
-        
         ProcessBuilder builder =
                 new ProcessBuilder(
                         ProcessBuilderCommands.ARDUINO_CLI,
                         tech.sorethumb.clion.constants.ACliC.Board.asString(),
                         tech.sorethumb.clion.constants.ACliC.Board.LISTALL);
-        return ExecuteCommandLine(builder, asJSON, false);
+        return ExecuteCommandLine(builder);
     }
     
-    public static Boards deserialize(String json){
-        Gson gson = new Gson();
-        Boards boards = (Boards)gson.fromJson(json, Boards.class);
-        return boards;
+    /**
+     * Show information about a board, in particular if the board has options to be specified in the FQBN.
+     * @param fqbn
+     * @return
+     */
+    public static String BoardDetails (String fqbn){
+        ProcessBuilder builder =
+                new ProcessBuilder(
+                        ProcessBuilderCommands.ARDUINO_CLI,
+                        tech.sorethumb.clion.constants.ACliC.Board.asString(),
+                        tech.sorethumb.clion.constants.ACliC.Board.DETAILS,
+                        fqbn);
+        return ExecuteCommandLine(builder);
     }
 }

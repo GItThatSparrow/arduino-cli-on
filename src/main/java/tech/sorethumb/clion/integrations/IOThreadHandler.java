@@ -24,6 +24,8 @@ public class IOThreadHandler extends Thread {
                 line = br.nextLine();
                 output.append(line).append(System.getProperty("line.separator"));
             }
+        }catch (Exception x){
+            log.error(x.getMessage(), x);
         }
     }
     

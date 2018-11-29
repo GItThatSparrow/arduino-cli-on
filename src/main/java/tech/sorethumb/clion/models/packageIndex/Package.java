@@ -2,6 +2,7 @@
 package tech.sorethumb.clion.models.packageIndex;
 
 import com.google.gson.annotations.SerializedName;
+import tech.sorethumb.clion.models.NamedPackageObjects;
 import tech.sorethumb.clion.models.transform.PackagePlatformVersion;
 
 import javax.annotation.Generated;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
-public class Package {
+public class Package implements NamedPackageObjects {
 
     @SerializedName("email")
     private String mEmail;
@@ -59,7 +60,12 @@ public class Package {
     public String getWebsiteURL() {
         return mWebsiteURL;
     }
-
+    
+    @Override
+    public String getDisplayName () {
+        return mName;
+    }
+    
     public static class Builder {
 
         private String mEmail;

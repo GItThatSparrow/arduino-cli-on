@@ -39,7 +39,7 @@ public class Board {
      */
     public static final String ATTACH = "attach";
     /**
-     * Attaches a sketch to a board
+     * Show information about a board, in particular if the board has options to be specified in the FQBN.
      */
     public static final String DETAILS = "details";
     /**

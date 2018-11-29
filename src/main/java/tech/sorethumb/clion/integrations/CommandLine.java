@@ -1,7 +1,10 @@
 package tech.sorethumb.clion.integrations;
 
 import com.intellij.openapi.diagnostic.Logger;
+import tech.sorethumb.clion.constants.ACliC.Core;
+import tech.sorethumb.clion.constants.ACliC.Version;
 import tech.sorethumb.clion.constants.ProcessBuilderCommands;
+import tech.sorethumb.clion.utils.Environment;
 
 import java.io.IOException;
 
@@ -17,6 +20,22 @@ public class CommandLine {
         return ExecuteCommandLine(builder);
     }
     
+    static String version () {
+        ProcessBuilder builder = new ProcessBuilder(
+                ProcessBuilderCommands.ARDUINO_CLI,
+                Version.asString());
+        return ExecuteCommandLine(builder);
+    }
+    
+    /**
+     * This is a generic method for testing wheter or not the {@code arduino-cli} is installed
+     *
+     * There is a {@code Validate} command in the code, but it's commented out.  This does
+     * not validate the installation, it simply checks if it is available at all.
+     *
+     * @see <a href="https://github.com/arduino/arduino-cli/blob/master/commands/validate/validate.go">Validate</a>
+     * @return
+     */
     static Boolean hasArduinoCliInstalled () {
         try {
             String getHelp = help();
@@ -27,20 +46,25 @@ public class CommandLine {
         return false;
     }
     
-    private static String ExecuteCommandLine (ProcessBuilder builder) {
-        return ExecuteCommandLine(builder, false);
-    }
-    
-    private static String ExecuteCommandLine (ProcessBuilder builder, boolean debug) {
-        return ExecuteCommandLine(builder, false, debug);
-    }
-    
-    protected static String ExecuteCommandLine (ProcessBuilder builder, boolean JSON, boolean DEBUG) {
-        if (JSON) {
+    /**
+     * Run a command-line operation and get the response in JSON, if it is available.
+     *
+     * Every command will be passed the {@code --format=json} parameter.
+     *
+     * @param builder Used to build the command executed
+     * @return A complete {@link String} of the execution result.
+     */
+    protected static String ExecuteCommandLine (ProcessBuilder builder) {
+        
+        /*
+        Adding this check here since it doesn't look like the command runs if the "--format=json" flag is added.
+        */
+        if(!builder.command().contains(Core.UPDATE_INDEX)) {
             log.debug("Adding JSON Flag.");
             builder.command().add(ProcessBuilderCommands.FORMAT_JSON);
         }
-        if (DEBUG) {
+        
+        if (Environment.isDebugEnv()) {
             log.debug("Adding DEBUG flag.");
             builder.command().add(ProcessBuilderCommands.DEBUG);
         }

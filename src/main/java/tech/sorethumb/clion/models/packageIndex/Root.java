@@ -10,6 +10,9 @@ import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Information about a available code packages.
+ */
 @Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
 public class Root {

@@ -21,10 +21,10 @@ public class ProcessBuilderCommands {
      * Help about any command
      */
     public static final String HELP = "--help";
-    
-    /**
+    /*
+    *//**
      * Arduino Configuration Commands
-     */
+     *//*
     public static class Config {
         
         public static final String CONFIG = "config";
@@ -39,9 +39,9 @@ public class ProcessBuilderCommands {
         }
     }
     
-    /**
-     * Arduino Core operations
-     */
+    *//**
+     * Arduino Root operations
+     *//*
     public static class Core {
         
         public static final String CORE = "core";
@@ -56,9 +56,9 @@ public class ProcessBuilderCommands {
         }
     }
     
-    /**
+    *//**
      * Arduino commands about libraries
-     */
+     *//*
     public static class Lib {
         
         public static final String LIB = "lib";
@@ -71,7 +71,7 @@ public class ProcessBuilderCommands {
         public static String asString () {
             return LIB;
         }
-    }
+    }*/
     
     /**
      * Arduino CLI Sketch Commands
@@ -106,23 +106,5 @@ public class ProcessBuilderCommands {
             return UPLOAD;
         }
     }
-    
-    /**
-     * Shows version number of arduino CLI
-     */
-    public static class Version {
-        
-        public static final String VERSION = "version";
-        
-        @Override
-        public String toString () {
-            return VERSION;
-        }
-        
-        public static String asString () {
-            return VERSION;
-        }
-    }
-    
     
 }

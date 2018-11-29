@@ -4,7 +4,6 @@ public class Core {
     
     private static final String CORE = "core";
     
-    
     /**
      * Returns a string representation of the object. In general, the
      * {@code toString} method returns a string that
