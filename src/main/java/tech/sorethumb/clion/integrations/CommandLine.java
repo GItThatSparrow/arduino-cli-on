@@ -2,7 +2,6 @@ package tech.sorethumb.clion.integrations;
 
 import com.intellij.openapi.diagnostic.Logger;
 import tech.sorethumb.clion.constants.ACliC.Core;
-import tech.sorethumb.clion.constants.ACliC.Version;
 import tech.sorethumb.clion.constants.ProcessBuilderCommands;
 import tech.sorethumb.clion.utils.Environment;
 
@@ -17,13 +16,6 @@ public class CommandLine {
     static String help () {
         
         ProcessBuilder builder = new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI, ProcessBuilderCommands.HELP);
-        return ExecuteCommandLine(builder);
-    }
-    
-    static String version () {
-        ProcessBuilder builder = new ProcessBuilder(
-                ProcessBuilderCommands.ARDUINO_CLI,
-                Version.asString());
         return ExecuteCommandLine(builder);
     }
     
@@ -75,6 +67,7 @@ public class CommandLine {
             IOThreadHandler ioThreadHandler = new IOThreadHandler(p.getInputStream());
             ioThreadHandler.start();
             p.waitFor();
+            log.debug(String.format("The command-line operation has exited with a code of: %s", p.exitValue()));
             line = ioThreadHandler.getOutput().toString();
         } catch (IOException | InterruptedException e) {
             line = e.getMessage();

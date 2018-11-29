@@ -41,7 +41,6 @@ public class CommandLineTest {
     }
     @Test
     public void boardListAll(){
-        Boolean b = true;
         String result = Board.BoardListAll();
         String jsonStart = "{\"boards\":[{\"name\":\"ATtiny24/44/84\",\"fqbn\":\"attiny:avr:ATtinyX4\"},{\"name\":\"ATtiny25/45/85\"";
         boolean bResult = result.startsWith(jsonStart);
