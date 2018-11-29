@@ -20,7 +20,16 @@ public class Version extends CommandLine {
     
     public static boolean isVersionValid(){
         String actual = getVersion();
-        return Constants.validate(actual);
+        return validate(actual);
+    }
+    
+    /**
+     * Tests the response against a validation expression.
+     * @param actual The string response from the {@code arduino-cli}
+     * @return Will respond {@code true} if it is a valid match.
+     */
+    public static boolean validate (String actual) {
+        return actual.trim().matches(Constants.regex);
     }
     
     /**
@@ -39,15 +48,6 @@ public class Version extends CommandLine {
         
         public static String asString () {
             return VERSION;
-        }
-        
-        /**
-         * Tests the response against a validation expression.
-         * @param actual The string response from the {@code arduino-cli}
-         * @return Will respond {@code true} if it is a valid match.
-         */
-        public static boolean validate (String actual) {
-            return actual.trim().matches(regex);
         }
     }
     
