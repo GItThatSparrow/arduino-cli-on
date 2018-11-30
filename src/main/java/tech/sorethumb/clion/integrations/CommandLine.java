@@ -1,8 +1,8 @@
 package tech.sorethumb.clion.integrations;
 
 import com.intellij.openapi.diagnostic.Logger;
-import tech.sorethumb.clion.constants.ACliC.Core;
 import tech.sorethumb.clion.constants.ProcessBuilderCommands;
+import tech.sorethumb.clion.integrations.ACliC.Core;
 import tech.sorethumb.clion.utils.Environment;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class CommandLine {
     
     static String help () {
         
-        ProcessBuilder builder = new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI, ProcessBuilderCommands.HELP);
+        ProcessBuilder builder = new ProcessBuilder(ProcessBuilderCommands.HELP);
         return ExecuteCommandLine(builder);
     }
     
@@ -47,11 +47,13 @@ public class CommandLine {
      * @return A complete {@link String} of the execution result.
      */
     protected static String ExecuteCommandLine (ProcessBuilder builder) {
-        
+        builder.command().add(0, ProcessBuilderCommands.ARDUINO_CLI);
         /*
-        Adding this check here since it doesn't look like the command runs if the "--format=json" flag is added.
+        Adding these checks here since the command returns an empty string if the "--format=json" flag is added.
         */
-        if(!builder.command().contains(Core.UPDATE_INDEX)) {
+        if(!builder.command().contains(Core.Constants.UPDATE_INDEX) &&
+                !builder.command().contains(Core.Constants.INSTALL) &&
+                !builder.command().contains(Core.Constants.DOWNLOAD)) {
             log.debug("Adding JSON Flag.");
             builder.command().add(ProcessBuilderCommands.FORMAT_JSON);
         }

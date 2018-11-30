@@ -1,6 +1,5 @@
 package tech.sorethumb.clion.integrations.ACliC;
 
-import tech.sorethumb.clion.constants.ProcessBuilderCommands;
 import tech.sorethumb.clion.integrations.CommandLine;
 
 /**
@@ -16,10 +15,9 @@ public class Config extends CommandLine {
      */
     public static String dump(){
         ProcessBuilder builder = new ProcessBuilder(
-                ProcessBuilderCommands.ARDUINO_CLI,
                 Constants.asString(),
                 Constants.DUMP);
-        return CommandLine.ExecuteCommandLine(builder).trim();
+        return ExecuteCommandLine(builder).trim();
     }
     
     

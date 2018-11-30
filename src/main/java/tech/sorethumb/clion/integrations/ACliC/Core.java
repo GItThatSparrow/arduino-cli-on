@@ -1,16 +1,14 @@
 package tech.sorethumb.clion.integrations.ACliC;
 
-import tech.sorethumb.clion.constants.ProcessBuilderCommands;
 import tech.sorethumb.clion.integrations.CommandLine;
 
 public class Core extends CommandLine {
     
     public static String coreUpdateIndex(){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.UPDATE_INDEX);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -19,10 +17,9 @@ public class Core extends CommandLine {
      */
     public static String getListJSON(){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.LIST);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -39,11 +36,10 @@ public class Core extends CommandLine {
      */
     public static String downloadCore(String fqbn){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.DOWNLOAD,
                         fqbn);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -54,12 +50,11 @@ public class Core extends CommandLine {
      */
     public static String downloadCore(String fqbn, String version){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.DOWNLOAD,
                         fqbn,
                         version);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -69,11 +64,10 @@ public class Core extends CommandLine {
      */
     public static String installCore(String fqbn){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.INSTALL,
                         fqbn);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -84,12 +78,11 @@ public class Core extends CommandLine {
      */
     public static String installCore(String fqbn, String version){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.INSTALL,
                         fqbn,
                         version);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -99,11 +92,10 @@ public class Core extends CommandLine {
      */
     public static String uninstallCore(String fqbn){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.UNINSTALL,
                         fqbn);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -114,12 +106,11 @@ public class Core extends CommandLine {
      */
     public static String uninstallCore(String fqbn, String version){
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.UNINSTALL,
                         fqbn,
                         version);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     

@@ -1,8 +1,5 @@
 package tech.sorethumb.clion.integrations.ACliC;
 
-import tech.sorethumb.clion.constants.ProcessBuilderCommands;
-import tech.sorethumb.clion.integrations.CommandLine;
-
 public class Board extends tech.sorethumb.clion.integrations.CommandLine {
     
     /**
@@ -12,10 +9,9 @@ public class Board extends tech.sorethumb.clion.integrations.CommandLine {
     public static String BoardList () {
         
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.LIST);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -26,7 +22,6 @@ public class Board extends tech.sorethumb.clion.integrations.CommandLine {
     
         ProcessBuilder builder =
                 new ProcessBuilder(
-                        ProcessBuilderCommands.ARDUINO_CLI,
                         Constants.asString(),
                         Constants.LISTALL);
         return ExecuteCommandLine(builder);
@@ -40,7 +35,6 @@ public class Board extends tech.sorethumb.clion.integrations.CommandLine {
     public static String BoardDetails (String fqbn){
         ProcessBuilder builder =
                 new ProcessBuilder(
-                        ProcessBuilderCommands.ARDUINO_CLI,
                         Constants.asString(),
                         Constants.DETAILS,
                         fqbn);
@@ -85,7 +79,8 @@ public class Board extends tech.sorethumb.clion.integrations.CommandLine {
          */
         public static final String ATTACH = "attach";
         /**
-         * Show information about a board, in particular if the board has options to be specified in the FQBN.
+         * Show information about a board, in particular if
+         * the board has options to be specified in the FQBN.
          */
         public static final String DETAILS = "details";
         /**

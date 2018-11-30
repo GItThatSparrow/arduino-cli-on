@@ -1,6 +1,5 @@
 package tech.sorethumb.clion.integrations.ACliC;
 
-import tech.sorethumb.clion.constants.ProcessBuilderCommands;
 import tech.sorethumb.clion.integrations.CommandLine;
 
 public class Lib extends CommandLine{
@@ -13,10 +12,9 @@ public class Lib extends CommandLine{
     {
         
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.LIST);
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -27,11 +25,10 @@ public class Lib extends CommandLine{
     {
         
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.LIST,
-                        "--all");
-        return CommandLine.ExecuteCommandLine(builder);
+                        "all");
+        return ExecuteCommandLine(builder);
     }
     
     /**
@@ -41,11 +38,10 @@ public class Lib extends CommandLine{
     public static String getUpdatableLibraries()
     {
         ProcessBuilder builder =
-                new ProcessBuilder(ProcessBuilderCommands.ARDUINO_CLI,
-                        Constants.asString(),
+                new ProcessBuilder(Constants.asString(),
                         Constants.LIST,
                         "--updatable");
-        return CommandLine.ExecuteCommandLine(builder);
+        return ExecuteCommandLine(builder);
     }
     
     /**

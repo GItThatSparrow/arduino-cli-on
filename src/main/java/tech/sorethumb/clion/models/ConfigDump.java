@@ -1,6 +1,6 @@
 package tech.sorethumb.clion.models;
 
-import tech.sorethumb.clion.constants.ACliC.Config;
+import tech.sorethumb.clion.integrations.ACliC.Config;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -67,10 +67,10 @@ public class ConfigDump {
                 .map(str -> str.split(": "))
                 .collect(toMap(str -> str[0], str -> str[1]));
         
-        proxy_type = map.get(Config.proxy_type);
-        sketchbook_path = map.get(Config.sketchbook_path);
-        arduino_data = map.get(Config.arduino_data);
-        board_manager = map.get(Config.board_manager);
+        proxy_type = map.get(Config.Constants.proxy_type);
+        sketchbook_path = map.get(Config.Constants.sketchbook_path);
+        arduino_data = map.get(Config.Constants.arduino_data);
+        board_manager = map.get(Config.Constants.board_manager);
         
         return new ConfigDump(proxy_type, sketchbook_path, arduino_data, board_manager);
     }

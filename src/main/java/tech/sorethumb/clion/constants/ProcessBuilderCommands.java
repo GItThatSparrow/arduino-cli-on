@@ -21,6 +21,9 @@ public class ProcessBuilderCommands {
      * Help about any command
      */
     public static final String HELP = "--help";
+    
+    public static final String REGEX_PARAM_NAME_VALUE = "--%s \"%s\"";
+    
     /*
     *//**
      * Arduino Configuration Commands
