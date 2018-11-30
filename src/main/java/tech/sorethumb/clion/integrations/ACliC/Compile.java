@@ -50,37 +50,19 @@ public class Compile extends CommandLine {
         params.addAll(compileProject.getKeyValueParams());
         
         return params;
-        /*ProcessBuilder builder = new ProcessBuilder(params);
-        return ExecuteCommandLine(builder);*/
     }
     
     public Set<String> getKeyValueParams(){
         Set<String> params = new HashSet<>();
-        /*
-        Arrays.stream(this.getClass().getFields())
-                .filter(f->{
-                    boolean b = false;
-                    try {
-                        b = f.get(this).toString().isEmpty();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    return b;
-                }).forEach(
-                f->{
-                    try {
-                        params.add(f.get(this).toString());
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                });
-        */
         params.add(getFqbn());
         params.add(getShowProperties());
         params.add(getPreprocess());
         params.add(getBuildCachePath());
+        
         params.add(getExportFile());
+        params.add(getBuildPath());
         params.add(getBuildProperties());
+        
         params.add(getWarnings());
         params.add(getVerbose());
         params.add(getQuiet());

@@ -26,4 +26,26 @@ public class CompileTest {
         assertTrue(params.size() == 2);
         assertTrue(params != null);
     }
+    
+    @Test
+    public void testWarningLevel () {
+        Compile compile = new Compile();
+        
+        compile.setFqbn("Intel:38s");
+        compile.setShowProperties("true");
+        compile.setPreprocess("false");
+        compile.setBuildCachePath("/this/is/a/cache/path");
+        compile.setExportFile("/ThisIsAnExport/Path/Here");
+        compile.setBuildPath(System.getProperty("user.home"));
+        compile.setBuildProperties("some=property,another=prop");
+        compile.setWarnings(Compile.WarningLevel.ALL);
+        compile.setVerbose("true");
+        compile.setQuiet("true");
+        compile.setVidPid("vidPid");
+        
+        Set<String> params = compile.getKeyValueParams();
+        assertTrue(params != null);
+        assertTrue(params.contains("--warnings \"all\""));
+        assertTrue(params.size() == 11);
+    }
 }

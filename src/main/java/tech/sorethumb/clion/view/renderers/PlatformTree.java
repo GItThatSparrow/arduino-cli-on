@@ -19,19 +19,6 @@ public class PlatformTree {
         //create the child nodes
         addChildren(root, packagePlatforms);
         
-        /**
-         * Stream<Object> s = Arrays.stream(packagePlatforms);
-        s.forEach(o -> {
-            NamedPackageObjects p = (Platform)o;
-            DefaultMutableTreeNode defaultMutableTreeNode = new DefaultMutableTreeNode(((Platform) o).getName());
-        });
-        DefaultMutableTreeNode vegetableNode = new DefaultMutableTreeNode("Vegetables");
-        DefaultMutableTreeNode fruitNode = new DefaultMutableTreeNode("Fruits");
-        //add the child nodes to the root node
-        root.add(vegetableNode);
-        root.add(fruitNode);
-         */
-        
         //create the tree by passing in the root node
         tree = new JTree(root);
         /*add(tree);*/
